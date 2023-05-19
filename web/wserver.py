@@ -705,7 +705,7 @@ def re_verfiy(paused, resumed, client, hash_id):
         LOGGER.info("Reverification Failed! Correcting stuff...")
         client.auth_log_out()
         sleep(1)
-        client = qbClient(host="localhost", port="8090")
+        client = qbClient(host="localhost", port="8888")
         try:
             client.torrents_file_priority(torrent_hash=hash_id, file_ids=paused, priority=0)
         except NotFound404Error:
@@ -742,12 +742,12 @@ def list_torrent_contents(id_):
             "<!-- Print -->", "<h1 style='text-align: center;color: red;'>Incorrect pin code</h1>")
 
     if len(id_) > 20:
-        client = qbClient(host="localhost", port="8090")
+        client = qbClient(host="localhost", port="8888")
         res = client.torrents_files(torrent_hash=id_)
         cont = make_tree(res)
         client.auth_log_out()
     else:
-        aria2 = ariaAPI(ariaClient(host="http://localhost", port=6800, secret=""))
+        aria2 = ariaAPI(ariaClient(host="http://localhost", port=8888, secret=""))
         res = aria2.client.get_files(id_)
         cont = make_tree(res, True)
     return rawindexpage.replace("/* style2 */", stlye2).replace("<!-- files_list -->", files_list) \
